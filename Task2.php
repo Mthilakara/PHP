@@ -7,7 +7,7 @@
     <h1>Student Grades</h1>
 
     <?php
-   
+    
     $gradingScale = [
         'A+' => [90, 100],
         'A' => [85, 89],
@@ -32,23 +32,28 @@
         }
         return 'Invalid';
     }
+
+    
+    for ($i = 1; $i <= 20; $i++) {
+        if (isset($_POST["marks$i"])) {
+            $marks = floatval($_POST["marks$i"]);
+            $grade = calculateGrade($marks, $gradingScale);
+        } else {
+            $marks = 0;
+            $grade = '';
+        }
+        echo "<p>Student $i - Marks: $marks, Grade: $grade</p>";
+    }
     ?>
 
-    <table border="1">
-        <tr>
-            <th>Student</th>
-            <th>Marks</th>
-            <th>Grade</th>
-        </tr>
-
+    <form method="post">
         <?php
         
         for ($i = 1; $i <= 20; $i++) {
-            $marks = rand(0, 100);
-            $grade = calculateGrade($marks, $gradingScale);
-            echo "<tr><td>Student $i</td><td>$marks</td><td>$grade</td></tr>";
+            echo "Enter marks for Student $i: <input type='text' name='marks$i'><br>";
         }
         ?>
-    </table>
+        <input type="submit" value="Calculate Grades">
+    </form>
 </body>
 </html>
